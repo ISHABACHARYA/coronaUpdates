@@ -1,0 +1,4 @@
+export default {
+  DARK_MODE: "THEME_DARK_MODE",
+  LIGHT_MODE: "THEME_LIGHT_MODE"
+};
