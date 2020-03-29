@@ -41,20 +41,24 @@ export class HomeScreen extends Component {
   };
   areaList = async () => {
     await this.props.actions.areaList();
-    let countryList = _.values(Object.keys(this.props.home.areaList.countries));
+    let countryList = [];
+    for (let i = 0; i < 16; i++) {
+      countryList.push(this.props.home.areaList.countries[i].name);
+    }
     this.setState({ filterData: _.take(countryList, 16) });
+    console.log("country list is ", { countryList });
   };
   onChangeSearchText = param => {
     const regEx = "\\s*(" + param + ")\\s*";
     const validator = new RegExp(regEx, "i");
     // const validator = new RegExp(`\\s*t\\s*`, 'i')
     let filterData = [];
-    let countryList = _.values(Object.keys(this.props.home.areaList.countries));
+    // let countryList = this.props.home.areaList.countries?.name;
 
-    countryList.forEach(item => {
-      let flag = validator.test(item);
+    this.props.home.areaList.countries.forEach(item => {
+      let flag = validator.test(item.name);
       if (flag) {
-        filterData.push(item);
+        filterData.push(item.name);
       }
     });
     this.setState({ filterData: _.take(filterData, 16) });
@@ -63,6 +67,7 @@ export class HomeScreen extends Component {
   handleOnSelectArea = async params => {
     let { areaDataError } = this.props.home;
     this.setState({ searchModalVisible: false });
+    console.log("selected area params is ---", params);
     await this.props.actions.areaData(params);
     if (!areaDataError) this.setState({ title: params });
   };

@@ -60,7 +60,7 @@ function* areaList() {
   try {
     let URL = `${env.MATHDROID_URL}${HomeRoutes.areaList2}`;
     const res = yield call(Api.get, URL);
-    console.log("list URL is ----", URL, res);
+    console.log("list URL is ----", URL, res?.countries);
     if (res) {
       // yield put(HomeActions.areaListSuccess(res.results));
       yield put(HomeActions.areaListSuccess(res));
